@@ -1,6 +1,7 @@
 package com.mycompany.billetera;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,39 @@ public class frmBilletera extends javax.swing.JFrame {
 
         //stablecemos el modelo a la tabla
         tblDatos.setModel(modelo);
+    }
+
+    public boolean validarMonto() {
+        return txtMonto.getText().trim().isEmpty() || Integer.parseInt(txtMonto.getText()) <= 0;
+    }
+
+    public void registrarGasto() {
+        if (validarMonto()) {
+            JOptionPane.showMessageDialog(rootPane, "POR FAVOR INGRESAR EL MONTO DE LA COMPRA/VENTA", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
+        } else {
+            double monto;
+            int id;
+            String compra = "Compra";
+            Date fecha;
+            monto = Integer.parseInt(txtMonto.getText());
+
+        }
+    }
+
+    //funcion para generar el id
+    public int idAleatorio() {
+        int valarDado = (int) Math.floor(Math.random() * 100 + 1);
+        return valarDado;
+    }
+
+    //metodo para obtener la fecha
+    public String obtenerFecha() {
+        Date fecha = new Date();
+
+        //vamos a darle formato a la fecha
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS a");
+
+        return formatoFecha.format(fecha);
     }
 
     /**
@@ -153,10 +187,7 @@ public class frmBilletera extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCompraActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-        double monto;
-        int id;
-        String compra = "Compra";
-        Date fecha;
+
 
     }//GEN-LAST:event_btnVentaActionPerformed
 

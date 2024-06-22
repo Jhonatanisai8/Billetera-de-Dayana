@@ -7,11 +7,11 @@ public class Gasto {
     //atributo
     private int id;
     private String tipo;
-    private Date fecha;
+    private String fecha;
     private double monto;
 
     //constructor
-    public Gasto(int id, String tipo, Date fecha, double monto) {
+    public Gasto(int id, String tipo, String fecha, double monto) {
         this.id = id;
         this.tipo = tipo;
         this.fecha = fecha;
@@ -35,11 +35,11 @@ public class Gasto {
         this.tipo = tipo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
