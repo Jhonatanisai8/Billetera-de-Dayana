@@ -1,6 +1,5 @@
 package com.mycompany.billetera;
 
-import java.util.Date;
 
 public class Gasto {
 
