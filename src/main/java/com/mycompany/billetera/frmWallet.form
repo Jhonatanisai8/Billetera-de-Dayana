@@ -52,7 +52,7 @@
                   <EmptySpace min="-2" pref="558" max="-2" attributes="0"/>
                   <Component id="jLabel3" pref="159" max="32767" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAcumulado" pref="149" max="32767" attributes="0"/>
+                  <Component id="txtAccumulated" pref="149" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -61,22 +61,22 @@
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Component id="jLabel4" pref="72" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtMonto" pref="225" max="32767" attributes="0"/>
+                          <Component id="txtAmount" pref="225" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" pref="169" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtMontoFijo" pref="199" max="32767" attributes="0"/>
+                          <Component id="txtFixedAmount" pref="199" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jLabel1" min="-2" pref="63" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnVenta" alignment="1" pref="157" max="32767" attributes="0"/>
-                      <Component id="btnCompra" alignment="1" pref="157" max="32767" attributes="0"/>
+                      <Component id="btnSale" alignment="1" pref="157" max="32767" attributes="0"/>
+                      <Component id="btnBuy" alignment="1" pref="157" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -91,12 +91,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel4" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="txtMonto" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="txtAmount" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtMontoFijo" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="txtFixedAmount" min="-2" pref="40" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -112,9 +112,9 @@
                                   <Component id="jLabel1" min="-2" pref="46" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnVenta" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnSale" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnCompra" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnBuy" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -123,7 +123,7 @@
                   <Component id="jScrollPane1" min="-2" pref="284" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtAcumulado" max="32767" attributes="0"/>
+                      <Component id="txtAccumulated" max="32767" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -137,7 +137,7 @@
               <Font name="SimHei" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Mi Billetera"/>
+            <Property name="text" type="java.lang.String" value="My wallet"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -147,7 +147,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblDatos">
+            <Component class="javax.swing.JTable" name="tblData">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Simplified Arabic Fixed" size="13" style="0"/>
@@ -166,10 +166,10 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo:"/>
+            <Property name="text" type="java.lang.String" value="Type:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCompra">
+        <Component class="javax.swing.JButton" name="btnBuy">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -177,13 +177,13 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imgs/3507741_add_cart_ecommerce_iconoteka_shop_icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Compra"/>
+            <Property name="text" type="java.lang.String" value="Buys"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompraActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuyActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnVenta">
+        <Component class="javax.swing.JButton" name="btnSale">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -191,10 +191,10 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imgs/3702393_discount_flash_sale_shopping_icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Venta"/>
+            <Property name="text" type="java.lang.String" value="Sale"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaleActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -205,22 +205,22 @@
             <Property name="text" type="java.lang.String" value="Monto Total:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtAcumulado">
+        <Component class="javax.swing.JTextField" name="txtAccumulated">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAcumuladoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAccumulatedActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Monto:"/>
+            <Property name="text" type="java.lang.String" value="Amount:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMonto">
+        <Component class="javax.swing.JTextField" name="txtAmount">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
@@ -232,10 +232,10 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imgs/134157_money_cashier_dollar_currency_icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Monto Inicial:"/>
+            <Property name="text" type="java.lang.String" value="Starting amount:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMontoFijo">
+        <Component class="javax.swing.JTextField" name="txtFixedAmount">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
