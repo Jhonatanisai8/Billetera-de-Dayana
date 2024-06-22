@@ -2,7 +2,7 @@ package com.mycompany.billetera;
 
 import java.util.Date;
 
-public class Billetera {
+public class Gasto {
 
     //atributo
     private int id;
@@ -11,7 +11,7 @@ public class Billetera {
     private double monto;
 
     //constructor
-    public Billetera(int id, String tipo, Date fecha, double monto) {
+    public Gasto(int id, String tipo, Date fecha, double monto) {
         this.id = id;
         this.tipo = tipo;
         this.fecha = fecha;

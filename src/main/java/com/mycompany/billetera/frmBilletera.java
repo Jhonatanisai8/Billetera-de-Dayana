@@ -1,13 +1,25 @@
 package com.mycompany.billetera;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class frmBilletera extends javax.swing.JFrame {
+
+    //variables locales
+    String[] cabezera = {"ID", "TIPO", "FECHA", "MONTO"};
+
+    //es como modelo para la tabla
+    DefaultTableModel modelo = new DefaultTableModel(cabezera, 0);
 
     public frmBilletera() {
         initComponents();
         FlatMaterialLighterIJTheme.setup();
+        this.setTitle("BIENVENIDO AL SISTEMA");
+
+        //stablecemos el modelo a la tabla
+        tblDatos.setModel(modelo);
     }
 
     /**
@@ -22,7 +34,7 @@ public class frmBilletera extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        btlDatos = new javax.swing.JTable();
+        tblDatos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnCompra = new javax.swing.JButton();
         btnVenta = new javax.swing.JButton();
@@ -37,7 +49,7 @@ public class frmBilletera extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Mi Billetera");
 
-        btlDatos.setModel(new javax.swing.table.DefaultTableModel(
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -45,7 +57,7 @@ public class frmBilletera extends javax.swing.JFrame {
                 "ID", "TIPO", "FECHA", "MONTO"
             }
         ));
-        jScrollPane1.setViewportView(btlDatos);
+        jScrollPane1.setViewportView(tblDatos);
 
         jLabel1.setText("Tipo:");
 
@@ -57,6 +69,11 @@ public class frmBilletera extends javax.swing.JFrame {
         });
 
         btnVenta.setText("Venta");
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Monto Total:");
 
@@ -135,6 +152,14 @@ public class frmBilletera extends javax.swing.JFrame {
         monto = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el monto"));
     }//GEN-LAST:event_btnCompraActionPerformed
 
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
+        double monto;
+        int id;
+        String compra = "Compra";
+        Date fecha;
+
+    }//GEN-LAST:event_btnVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,7 +196,6 @@ public class frmBilletera extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable btlDatos;
     private javax.swing.JButton btnCompra;
     private javax.swing.JButton btnVenta;
     private javax.swing.JLabel jLabel1;
@@ -180,6 +204,7 @@ public class frmBilletera extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtAcumulado;
     private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
