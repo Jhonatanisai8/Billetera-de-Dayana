@@ -8,7 +8,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        frmBilletera f = new frmBilletera();
-        f.setVisible(true);
+        frmBilletera ventana = new frmBilletera();
+        ventana.setVisible(true);
     }
 }

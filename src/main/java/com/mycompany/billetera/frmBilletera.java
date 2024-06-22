@@ -14,6 +14,9 @@ public class frmBilletera extends javax.swing.JFrame {
     //es como modelo para la tabla
     DefaultTableModel modelo = new DefaultTableModel(cabezera, 0);
 
+    //variable para el monto
+    double montoInicial = 100;
+
     public frmBilletera() {
         initComponents();
         FlatMaterialLighterIJTheme.setup();
@@ -21,26 +24,89 @@ public class frmBilletera extends javax.swing.JFrame {
 
         //stablecemos el modelo a la tabla
         tblDatos.setModel(modelo);
+        txtAcumulado.setText("S/." + montoInicial + "");
+        txtMontoFijo.setText("S/." + 100 + "");
     }
 
     public boolean validarMonto() {
         return txtMonto.getText().trim().isEmpty() || Integer.parseInt(txtMonto.getText()) <= 0;
     }
 
-    public void registrarGasto() {
-        if (validarMonto()) {
-            JOptionPane.showMessageDialog(rootPane, "POR FAVOR INGRESAR EL MONTO DE LA COMPRA/VENTA", "ATENCIÓN", JOptionPane.WARNING_MESSAGE);
-        } else {
-            double monto;
-            int id;
-            String compra = "Compra";
-            Date fecha;
-            monto = Integer.parseInt(txtMonto.getText());
+    public void registrarGasto(String tipo) {
+        double monto;
+        monto = Integer.parseInt(txtMonto.getText());
+        if (tipo.equalsIgnoreCase("Compra")) {
+            if (monto > montoInicial) {
+                JOptionPane.showMessageDialog(rootPane, "El monto debe ser menor a 100");
+                return;
+            } else {
+                montoInicial -= monto;
+                int id = idAleatorio();
+                String compra = tipo;
+                String fecha = obtenerFecha();
 
+                //creamos un objeto de la clase gasto
+                Gasto miGasto = new Gasto(id, compra, fecha, monto);
+
+                // Creamos un arreglo con los atributos de la clase gasro
+                String[] atributos = {"ID", "TIPO", "FECHA", "MONTO"};
+                Object[] fila = new Object[atributos.length];
+
+                for (int i = 0; i < atributos.length; i++) {
+                    // una sentencia break para cada atributo
+                    switch (atributos[i]) {
+                        case "ID":
+                            fila[i] = miGasto.getId();
+                            break;
+                        case "TIPO":
+                            fila[i] = miGasto.getTipo();
+                            break;
+                        case "FECHA":
+                            fila[i] = miGasto.getFecha();
+                            break;
+                        case "MONTO":
+                            fila[i] = miGasto.getMonto();
+                            break;
+                    }
+                }
+                modelo.addRow(fila);
+            }
+        } else {
+            montoInicial += monto;
+            int id = idAleatorio();
+            String compra = tipo;
+            String fecha = obtenerFecha();
+
+            //creamos un objeto de la clase gasto
+            Gasto miGasto = new Gasto(id, compra, fecha, monto);
+
+            // Creamos un arreglo con los atributos de la clase gasro
+            String[] atributos = {"ID", "TIPO", "FECHA", "MONTO"};
+            Object[] fila = new Object[atributos.length];
+
+            for (int i = 0; i < atributos.length; i++) {
+                // una sentencia break para cada atributo
+                switch (atributos[i]) {
+                    case "ID":
+                        fila[i] = miGasto.getId();
+                        break;
+                    case "TIPO":
+                        fila[i] = miGasto.getTipo();
+                        break;
+                    case "FECHA":
+                        fila[i] = miGasto.getFecha();
+                        break;
+                    case "MONTO":
+                        fila[i] = miGasto.getMonto();
+                        break;
+                }
+            }
+            //funcion para generar el id
+            modelo.addRow(fila);
         }
+        txtAcumulado.setText("S/." + montoInicial + "");
     }
 
-    //funcion para generar el id
     public int idAleatorio() {
         int valarDado = (int) Math.floor(Math.random() * 100 + 1);
         return valarDado;
@@ -76,6 +142,8 @@ public class frmBilletera extends javax.swing.JFrame {
         txtAcumulado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtMontoFijo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +151,7 @@ public class frmBilletera extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Mi Billetera");
 
+        tblDatos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -111,7 +180,20 @@ public class frmBilletera extends javax.swing.JFrame {
 
         jLabel3.setText("Monto Total:");
 
+        txtAcumulado.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtAcumulado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAcumuladoActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Monto:");
+
+        txtMonto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+
+        jLabel5.setText("Monto:");
+
+        txtMontoFijo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,9 +211,15 @@ public class frmBilletera extends javax.swing.JFrame {
                 .addComponent(txtAcumulado, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMontoFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -153,10 +241,15 @@ public class frmBilletera extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMontoFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -181,15 +274,16 @@ public class frmBilletera extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraActionPerformed
-        // TODO add your handling code here:
-        double monto;
-        monto = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el monto"));
+        registrarGasto("Compra");
     }//GEN-LAST:event_btnCompraActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-
-
+        registrarGasto("Venta");
     }//GEN-LAST:event_btnVentaActionPerformed
+
+    private void txtAcumuladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAcumuladoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAcumuladoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,10 +327,12 @@ public class frmBilletera extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtAcumulado;
     private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField txtMontoFijo;
     // End of variables declaration//GEN-END:variables
 }
