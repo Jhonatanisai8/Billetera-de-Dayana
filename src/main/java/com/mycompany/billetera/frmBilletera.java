@@ -1,6 +1,5 @@
 package com.mycompany.billetera;
-
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialPalenightIJTheme;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -19,13 +18,14 @@ public class frmBilletera extends javax.swing.JFrame {
 
     public frmBilletera() {
         initComponents();
-        FlatMaterialLighterIJTheme.setup();
+        FlatMaterialPalenightIJTheme.setup();
         this.setTitle("BIENVENIDO AL SISTEMA");
 
         //stablecemos el modelo a la tabla
         tblDatos.setModel(modelo);
         txtAcumulado.setText("$/." + montoInicial + "");
         txtMontoFijo.setText("$/." + 100 + "");
+        ocultarColumnas();
     }
 
     public boolean validarMonto() {
@@ -35,12 +35,53 @@ public class frmBilletera extends javax.swing.JFrame {
     public void registrarGasto(String tipo) {
         double monto;
         monto = Integer.parseInt(txtMonto.getText());
-        if (tipo.equalsIgnoreCase("Compra")) {
-            if (monto > montoInicial) {
-                JOptionPane.showMessageDialog(rootPane, "El monto debe ser menor a 100");
-                return;
+        if (validarMonto()) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingresar el monto");
+        } else {
+
+            if (tipo.equalsIgnoreCase("Compra")) {
+                if (monto > montoInicial) {
+                    JOptionPane.showMessageDialog(rootPane, "El monto debe ser menor a 100");
+                    return;
+                } else {
+                    montoInicial -= monto;
+                    int id = idAleatorio();
+                    String compra = tipo;
+                    String fecha = obtenerFecha();
+
+                    //creamos un objeto de la clase gasto
+                    Gasto miGasto = new Gasto(id, compra, fecha, monto);
+
+                    // Creamos un arreglo con los atributos de la clase gasro
+                    String[] atributos = {"ID", "TIPO", "FECHA", "MONTO"};
+                    Object[] fila = new Object[atributos.length];
+
+                    for (int i = 0; i < atributos.length; i++) {
+                        // una sentencia break para cada atributo
+                        switch (atributos[i]) {
+                            case "ID":
+                                fila[i] = miGasto.getId();
+                                break;
+                            case "TIPO":
+                                fila[i] = miGasto.getTipo();
+                                break;
+                            case "FECHA":
+                                fila[i] = miGasto.getFecha();
+                                break;
+                            case "MONTO":
+                                fila[i] = miGasto.getMonto();
+                                break;
+                        }
+                    }
+                    
+                    //agregamos la fila al modelo
+                    modelo.addRow(fila);
+                    //limpiamos el campo de 
+                    txtMonto.setText("");
+                    txtMonto.requestFocus();
+                }
             } else {
-                montoInicial -= monto;
+                montoInicial += monto;
                 int id = idAleatorio();
                 String compra = tipo;
                 String fecha = obtenerFecha();
@@ -69,46 +110,20 @@ public class frmBilletera extends javax.swing.JFrame {
                             break;
                     }
                 }
+                //funcion para generar el id
                 modelo.addRow(fila);
+
+                //limpiamos el campo de texto
+                txtMonto.setText("");
+                txtMonto.requestFocus();
             }
-        } else {
-            montoInicial += monto;
-            int id = idAleatorio();
-            String compra = tipo;
-            String fecha = obtenerFecha();
-
-            //creamos un objeto de la clase gasto
-            Gasto miGasto = new Gasto(id, compra, fecha, monto);
-
-            // Creamos un arreglo con los atributos de la clase gasro
-            String[] atributos = {"ID", "TIPO", "FECHA", "MONTO"};
-            Object[] fila = new Object[atributos.length];
-
-            for (int i = 0; i < atributos.length; i++) {
-                // una sentencia break para cada atributo
-                switch (atributos[i]) {
-                    case "ID":
-                        fila[i] = miGasto.getId();
-                        break;
-                    case "TIPO":
-                        fila[i] = miGasto.getTipo();
-                        break;
-                    case "FECHA":
-                        fila[i] = miGasto.getFecha();
-                        break;
-                    case "MONTO":
-                        fila[i] = miGasto.getMonto();
-                        break;
-                }
-            }
-            //funcion para generar el id
-            modelo.addRow(fila);
         }
         txtAcumulado.setText("$/." + montoInicial + "");
     }
 
+    //metodop para generar el id aleatorio
     public int idAleatorio() {
-        int valarDado = (int) Math.floor(Math.random() * 100 + 1);
+        int valarDado = (int) Math.floor(Math.random() * 1000 + 1);
         return valarDado;
     }
 
@@ -120,6 +135,13 @@ public class frmBilletera extends javax.swing.JFrame {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS a");
 
         return formatoFecha.format(fecha);
+    }
+
+    //la columa a ocultar es la que contiene el Id habitacion
+    private void ocultarColumnas() {
+        tblDatos.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblDatos.getColumnModel().getColumn(0).setMinWidth(40);
+        tblDatos.getColumnModel().getColumn(0).setPreferredWidth(40);
     }
 
     /**
@@ -146,12 +168,13 @@ public class frmBilletera extends javax.swing.JFrame {
         txtMontoFijo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel2.setFont(new java.awt.Font("SimHei", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Mi Billetera");
 
-        tblDatos.setFont(new java.awt.Font("Simplified Arabic Fixed", 0, 14)); // NOI18N
+        tblDatos.setFont(new java.awt.Font("Simplified Arabic Fixed", 0, 13)); // NOI18N
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
